@@ -1,0 +1,28 @@
+services:
+  unlimitedcities:
+    container_name: unlimitedcities
+    image: qjungo/unlimitedcities:latest
+    restart: always
+    labels:
+    - 'traefik.enable=true'
+    - 'traefik.http.routers.unlimitedcities.rule=HostRegexp(`^.+\.unlimitedcities\.ch$`)'
+    - 'traefik.http.routers.unlimitedcities.entrypoints=websecure'
+    - 'traefik.http.routers.unlimitedcities.tls.certresolver=ik_resolver'
+    - 'traefik.http.routers.unlimitedcities.tls.domains[0].main=*.unlimitedcities.ch'
+    - 'traefik.http.routers.unlimitedcities.tls.domains[1].main=dashboard.admin.unlimitedcities.ch'
+    environment:
+      PUBLIC_SUPABASE_URL: ${PUBLIC_SUPABASE_URL}
+      PUBLIC_SUPABASE_ANON_KEY: ${PUBLIC_SUPABASE_ANON_KEY}
+      PUBLIC_ADMIN_URL: ${PUBLIC_ADMIN_URL}
+      PUBLIC_ADMIN_FQDN: ${PUBLIC_ADMIN_FQDN}
+      SMTP_ADMIN_EMAIL: ${SMTP_ADMIN_EMAIL}
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
+      SMTP_SENDER_NAME: ${SMTP_SENDER_NAME}
+      PUBLIC_HOST_SCHEME: ${PUBLIC_HOST_SCHEME}
+      PUBLIC_HOST_PORT: ${PUBLIC_HOST_PORT}
+      SUPABASE_SERVICE_ROLE_KEY: ${SERVICE_ROLE_KEY}
+      PUBLIC_MAPBOX_TOKEN: ${PUBLIC_MAPBOX_TOKEN}
+      BODY_SIZE_LIMIT: "20M"
